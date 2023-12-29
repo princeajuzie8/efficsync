@@ -2,6 +2,8 @@
 import Image from "next/image";
 import { Input, Button } from "@material-tailwind/react";
 import { useReducer } from "react";
+import { ComplexNavbar } from "@/components/navbar/Navbar";
+import { SidebarWithLogo } from "@/components/sidebar/sidebar";
 declare module "@material-tailwind/react" {
   interface ButtonProps {
     placeholder?: string;
@@ -27,6 +29,7 @@ export default function Home() {
   return(
     <>
     <div>
+  
       <h1>{state.count}</h1>
 
       <button onClick={()=>dispatch({type: "INCREMENT"})}>INCREMENT</button>
