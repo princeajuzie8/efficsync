@@ -1,9 +1,8 @@
 // ConnectDB.test.ts
+import mongoose from "mongoose";
+import ConnectDB from "../../db/dbConnect";
 
-const mongoose = require('mongoose');
-const ConnectDB = require('../../db/dbConnect'); // Adjust the path accordingly
-
-// Mock mongoose
+/// Mock mongoose
 jest.mock('mongoose');
 
 // Write the test
@@ -21,7 +20,7 @@ describe('ConnectDB function', () => {
     const mongoConnectionString = process.env.MONGO_URL;
 
     // Call the ConnectDB function
-    await ConnectDB(mockServer,{"useNewUrlParser": true, "useUnifiedTopology": true});
+    await ConnectDB(mockServer);
 
     // Expect that mongoose.connect was called with the correct arguments
     expect(mongoose.connect).toHaveBeenCalledWith(mongoConnectionString);

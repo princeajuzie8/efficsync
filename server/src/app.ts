@@ -1,8 +1,11 @@
-const express = require("express");
-const DbConnect = require("../db/dbConnect");
+import express from "express";
+import userRouter from "../routes/userRoute";
+import ConnectDB from "../db/dbConnect";
 const app = express();
 
-DbConnect(app);
+app.use('/api/v1/client/user',userRouter)
 
+ 
+ConnectDB(app);
 
-export {}
+export default app;

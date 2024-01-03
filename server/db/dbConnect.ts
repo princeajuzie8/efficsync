@@ -1,4 +1,7 @@
-const mongoose = require("mongoose");
+
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+
 require("dotenv").config();
 
 interface Server {
@@ -7,7 +10,9 @@ interface Server {
 const port = process.env.PORT || 8001;
 
 function ConnectDB(server: Server) {
-  mongoose
+
+  if (process.env.MONGO_URL) {
+    mongoose
     .connect(process.env.MONGO_URL)
     .then(() => {
       return server.listen(port, () => {
@@ -17,8 +22,12 @@ function ConnectDB(server: Server) {
     .catch((err: Error) => {
       console.log(err);
     });
+  } else {
+    console.log('Mongo URL is undefined');
+  }
+
 }
 
-module.exports = ConnectDB;
 
-export {};
+
+export default ConnectDB;
