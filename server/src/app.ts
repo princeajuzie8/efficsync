@@ -5,3 +5,4 @@ const app = express();
 DbConnect(app);
 
 
+export {}

@@ -8,7 +8,7 @@ jest.mock('mongoose');
 
 // Write the test
 describe('ConnectDB function', () => {
-  it('should connect to MongoDB successfully', async () => {
+  it('should connect to MongoDB successfully ❤️‍🔥...', async () => {
     // Mock mongoose.connect to resolve successfully
     (mongoose.connect as jest.Mock).mockResolvedValueOnce(null);
 
@@ -17,7 +17,7 @@ describe('ConnectDB function', () => {
       listen: jest.fn()
     };
 
-    // Directly use the MongoDB connection string
+    //  use the MongoDB connection env 
     const mongoConnectionString = process.env.MONGO_URL;
 
     // Call the ConnectDB function
