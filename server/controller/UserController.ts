@@ -10,7 +10,7 @@ const getUser = (req: Request, res: Response) => {
     // Send a JSON response with a message
     res.json({
         message: "Api controller is working"
-    });
+    }); 
 };
 const Login=(req:Request , res:Response)=>{
  
