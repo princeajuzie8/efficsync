@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema({
     },
     bio: {
       type: String,
-      
+      default: 'tell us about your self',
     },
     password:{
         type: String,
