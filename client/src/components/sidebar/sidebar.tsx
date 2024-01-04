@@ -25,6 +25,8 @@ import {
   ChevronDownIcon,
   CubeTransparentIcon,
 } from "@heroicons/react/24/outline";
+import Logo from "../../assets/svg/logo.svg";
+import Image from "next/image";
 
 declare module "@material-tailwind/react" {
 
@@ -54,11 +56,11 @@ export function SidebarWithLogo() {
   };
  
   return (
-    <Card className="   p-4 shadow-xl shadow-blue-gray-900/5 w-full  max-w-[290px] sticky top-0 z-0 h-[100vh] rounded-none hidden lg:block overflow-x-auto">
-      <div className="mb-2 flex items-center gap-4 p-4">
-        <img src="https://docs.material-tailwind.com/img/logo-ct-dark.png" alt="brand" className="h-8 w-8" />
+    <Card className="    p-4 shadow-xl shadow-blue-gray-900/5 w-full  max-w-[290px] sticky top-0 z-0 h-[100vh] rounded-none hidden lg:block overflow-x-auto">
+      <div className="mb-2 flex text-center items-center gap-4 p-4 pl-0">
+        <Image src={Logo} alt="logo" width={50} height={50}  />
         <Typography variant="h5" color="blue-gray">
-          Sidebar
+          EfficSync
         </Typography>
       </div>
       <List>

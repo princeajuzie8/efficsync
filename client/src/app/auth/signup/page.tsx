@@ -8,7 +8,10 @@ import {
 } from "@material-tailwind/react";
 import Link from "next/link";
 import Image from "next/image";
-import BG from "@/assets/svg/signupbg.svg"
+import BG from "@/assets/svg/signupbg.svg";
+import React,{FormEvent} from "react"
+import axiosInstance from "@/config/axios.config";
+import ReactiveButton from 'reactive-button';
 
 declare module "@material-tailwind/react" {
   interface InputProps {
@@ -26,6 +29,53 @@ declare module "@material-tailwind/react" {
 }
 
 export default function page() {
+  const [state, setState] = React.useState('idle');
+  const [formData, setFormData] = React.useState({
+    email: "",
+    password: "",
+  })
+
+
+
+
+  const HandleInputChange = (e: any) => {
+    const { name, value } = e.target;
+  
+ 
+      // For other fields, update the state as usual
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    
+    
+    // Log the updated state
+  
+  };
+  
+  const Handlesubmit = async (e: any) => {
+    e.preventDefault();
+    const value = formData.email;
+    const username = value.split('@')[0];
+    setFormData((prevFormData: any) => {
+      const updatedFormData = { ...prevFormData, username: username };
+      console.log(updatedFormData);
+      return updatedFormData;
+    });
+      try{
+
+        const res = await  axiosInstance.post('client/auth', formData)
+          console.log(res)
+      }catch(error){
+          console.log(error)
+      }
+  };
+  
+
+
+
+
+  
   return (
     <div>
 
@@ -42,16 +92,23 @@ export default function page() {
       </div>
       <div className="w-full lg:w-3/5 flex flex-col items-center justify-center">
         <div className="text-center">
-          <Typography variant="h2" className="font-bold text-2xl mb-4 text-[#CECEC5]">Unlock Your Productivity? Sign Up Today</Typography>
-          <Typography variant="paragraph"  className="text-lg font-normal text-[#CECEC5]">Enter your email and password to register.</Typography>
+          <Typography variant="h2" className="font-bold text-2xl mb-4 text-gray-900">Unlock Your Productivity? Sign Up Today</Typography>
+          <Typography variant="paragraph"  className="text-lg font-normal text-gray-900">Enter your email and password to register.</Typography>
         </div>
-        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2">
+        <form className="mt-8 mb-2 mx-auto w-80 max-w-screen-lg lg:w-1/2" onSubmit={Handlesubmit}> 
           <div className="mb-1 flex flex-col gap-6">
-            <Typography   className="-mb-3 font-medium border-gray-100 text-[#CECEC5]">
+            <Typography   className="-mb-3 font-medium border-gray-100 text-gray-900">
               Your email
             </Typography>
-            <input placeholder="name@mail.com"
-          className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-[#CECEC5]  outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
+            <input placeholder="name@mail.com" type="email" name="email" value={formData.email} onChange={HandleInputChange}
+          className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-gray-900  outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
+          </div>
+          <div className="mb-1 flex flex-col gap-6">
+            <Typography   className="-mb-3 font-medium border-gray-100 text-gray-900">
+              password
+            </Typography>
+            <input placeholder="**********" type="password" name="password" value={formData.password} onChange={HandleInputChange}
+          className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-3 font-sans text-sm font-normal text-gray-900  outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" />
           </div>
           <Checkbox
             label={
@@ -71,9 +128,20 @@ export default function page() {
             }
             containerProps={{ className: "-ml-2.5" }}
           />
-          <Button className="mt-6 bg-[#0FADF9]" fullWidth>
+
+<ReactiveButton
+      buttonState={state}
+      idleText="Submit"
+      loadingText="Loading"
+      successText="Done"
+      color="blue"
+      width={350}
+      onClick={(e)=>Handlesubmit(e)}
+    
+    />
+          {/* <Button className="mt-6 bg-[#0FADF9]" fullWidth onClick={Handlesubmit}>
             Register Now
-          </Button>
+          </Button> */}
 
           <div className="space-y-4 mt-8">
             <Button size="lg" color="white" className="flex items-center gap-2 justify-center shadow-md bg-[#131313]" fullWidth>

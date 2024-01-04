@@ -286,7 +286,7 @@ export function ComplexNavbar() {
   }, []);
  
   return (
-    <Navbar className="mx-auto w-full  rounded-none  sticky top-0  rounded-b-lg border-[#7A7A7A]">
+    <Navbar className="mx-auto w-full  rounded-none  z-30 sticky top-0  rounded-b-lg ">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
